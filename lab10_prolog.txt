@@ -44,3 +44,7 @@ all_bigger(cons(H1, L1), cons(H2, L2)) :- greater(H1, H2), all_bigger(L1, L2).
 %3.3 sublist
 sublist(nil, _).
 sublist(cons(H1, L1), List2) :- search(H1, List2), sublist(L1, List2).
+
+%4.2 seqR
+seqR(zero, nil).
+seqR(s(N), cons(N, T)) :- seqR(N, T).
