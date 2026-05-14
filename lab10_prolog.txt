@@ -48,3 +48,9 @@ sublist(cons(H1, L1), List2) :- search(H1, List2), sublist(L1, List2).
 %4.2 seqR
 seqR(zero, nil).
 seqR(s(N), cons(N, T)) :- seqR(N, T).
+
+%4.3 seqR2
+last(nil, E, cons(E, nil)).
+last(cons(H, L), E, cons(H, NewList)) :- last(L, E, NewList).
+seqR2(zero, nil).
+seqR2(s(N), Result) :- seqR2(N, SeqTemp), last(SeqTemp, N, Result).
