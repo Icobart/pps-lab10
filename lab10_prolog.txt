@@ -54,3 +54,11 @@ last(nil, E, cons(E, nil)).
 last(cons(H, L), E, cons(H, NewList)) :- last(L, E, NewList).
 seqR2(zero, nil).
 seqR2(s(N), Result) :- seqR2(N, SeqTemp), last(SeqTemp, N, Result).
+
+%ex 5
+% l map (_+1)
+% map_inc(List, Result)
+% Result is a new list where every element of List is incremented by 1
+% ?- map_inc(cons(zero, nil), X). Expected: X = cons(s(zero), nil)
+map_inc(nil, nil).
+map_inc(cons(H, L), cons(s(H), NewL)) :- map_inc(L, NewL).
