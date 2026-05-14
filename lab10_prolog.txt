@@ -1,0 +1,46 @@
+%1.1 search
+search (X , cons (X , _)).
+search (X , cons (_ , Xs )) :- search (X , Xs ).
+
+%1.3 search_two
+search_two(X, cons(X, cons(_, cons(X, _)))).
+search_two(X, cons(_, Xs)) :- search_two(X, Xs).
+
+%1.4 search_anytwo
+search_anytwo(X, cons(X, Xs)) :- search(X, Xs).
+search_anytwo(X, cons(_, Xs)) :- search_anytwo(X, Xs).
+
+%2.1 Peano size of a list
+size(nil, zero).
+size(cons(_, Xs), s(N)) :- size(Xs, N).
+
+%2.2 sum_list
+sum(X, zero, X).
+sum(X, s(Y), s(Z)) :- sum(X, Y, Z).
+sum_list(nil, zero).
+sum_list(cons(H, Xs), Total) :- sum_list(Xs, SumT), sum(H, SumT, Total).
+
+%2.4 max
+greater (s(_) , zero ).
+greater (s(N) , s (M)) :- greater (N , M).
+max(cons(H, L), Max) :- max(L, H, Max).
+max(nil, Max, Max).
+max(cons(H, L), TempMax, Max) :- greater(H, TempMax), max(L, H, Max).
+max(cons(H, L), TempMax, Max) :- \+ greater(H, TempMax), max(L, TempMax, Max).
+
+%2.5 max and min
+less(zero, s(_)).
+less(s(N), s(M)) :- less(N, M).
+min_max(cons(H, L), Min, Max) :- min_max(L, H, H, Min, Max).
+min_max(nil, Min, Max, Min, Max).
+min_max(cons(H, L), TempMin, TempMax, Min, Max) :- \+ less(H, TempMin), greater(H, TempMax), min_max(L, TempMin, H, Min, Max).
+min_max(cons(H, L), TempMin, TempMax, Min, Max) :- less(H, TempMin), \+ greater(H, TempMax), min_max(L, H, TempMax, Min, Max).
+min_max(cons(H, L), TempMin, TempMax, Min, Max) :- \+ less(H, TempMin), \+ greater(H, TempMax), min_max(L, TempMin, TempMax, Min, Max).
+
+%3.2 all_bigger
+all_bigger(nil, nil).
+all_bigger(cons(H1, L1), cons(H2, L2)) :- greater(H1, H2), all_bigger(L1, L2).
+
+%3.3 sublist
+sublist(nil, _).
+sublist(cons(H1, L1), List2) :- search(H1, List2), sublist(L1, List2).
